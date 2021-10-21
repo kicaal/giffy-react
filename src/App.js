@@ -1,24 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react'
+import { Link, Route } from 'wouter'
+import Home from './pages/Home';
+import Detail from './pages/Detail'
+import SearchResults from './pages/SearchResults';
+import StaticContext from './context/StaticContext';
+import {GifsContext} from './context/GifContext';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StaticContext.Provider value>
+      <div className="App">
+        <section className="App-content">
+          <Link to="/">
+            <img className="App-logo" alt="Giffy logo" src="/giphy-logo.png"/>
+          </Link>
+          <GifsContext>
+            <Route path="/" component={Home}/>
+            <Route path="/gif/:id" component={Detail}/>
+            <Route path="/search/:keyword" component={SearchResults}/>
+          </GifsContext>
+        </section>
+      </div>
+    </StaticContext.Provider>
   );
 }
 
