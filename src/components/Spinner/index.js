@@ -1,13 +1,14 @@
-import React from "react";
-import './styles.css'
+import "./styles.css";
 
 function Spinner() {
-  return <div className="lds-ring">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
+  return (
+    <div className="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  );
 }
 
-export default Spinner
+export default Spinner;
