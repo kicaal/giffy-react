@@ -26,9 +26,10 @@ export function useGifs({ keyword } = { keyword: null }) {
 
   useEffect(
     function () {
+      console.log(keywordToUse);
       if (page === INITIAL_PAGE) return;
       setLoadingNextPage(true);
-      getGifs({ keywordToUse, page }).then((nextGifs) => {
+      getGifs({ keyword: keywordToUse, page }).then((nextGifs) => {
         setGifs((prevGifs) => prevGifs.concat(nextGifs));
         setLoadingNextPage(false);
       });
