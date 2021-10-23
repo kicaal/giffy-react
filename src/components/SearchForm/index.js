@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import css from "./SearchForm.module.css";
 
 function SearchForm({ onSubmit }) {
   const [keyword, setKeyword] = useState("");
@@ -12,9 +13,10 @@ function SearchForm({ onSubmit }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <button>Buscar</button>
+    <form className={css["c-search"]} onSubmit={handleSubmit}>
+      <button className={css["c-search-btn"]}>Buscar</button>
       <input
+        className={css["c-search-input"]}
         onChange={handleChange}
         placeholder="Search a gif here..."
         type="text"

@@ -5,21 +5,30 @@ import Detail from "./pages/Detail";
 import SearchResults from "./pages/SearchResults";
 import StaticContext from "./context/StaticContext";
 import { GifsContext } from "./context/GifContext";
+import { Suspense } from "react";
 
 function App() {
   return (
     <StaticContext.Provider value>
       <div className="App">
-        <section className="App-content">
-          <Link to="/">
-            <img className="App-logo" alt="Giffy logo" src="/giphy-logo.png" />
-          </Link>
-          <GifsContext>
-            <Route path="/" component={Home} />
-            <Route path="/gif/:id" component={Detail} />
-            <Route path="/search/:keyword" component={SearchResults} />
-          </GifsContext>
-        </section>
+        <Suspense fallback={null}>
+          <section className="App-content">
+            <Link to="/">
+              <figure className="App-logo">
+                <img alt="Giffy logo" src="/giphy-logo.png" />
+              </figure>
+            </Link>
+            <GifsContext>
+              <Route component={Home} path="/" />
+              <Route
+                component={SearchResults}
+                path="/search/:keyword/:rating?"
+              />
+              <Route component={Detail} path="/gif/:id" />
+              <Route component={() => <h1>404 ERROR :(</h1>} path="/404" />
+            </GifsContext>
+          </section>
+        </Suspense>
       </div>
     </StaticContext.Provider>
   );
