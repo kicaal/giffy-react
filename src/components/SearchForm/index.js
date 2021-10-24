@@ -1,15 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import css from "./SearchForm.module.css";
+import { useLocation } from "wouter";
+import useForm from "./hook";
 
-function SearchForm({ onSubmit }) {
-  const [keyword, setKeyword] = useState("");
+const RATINGS = ["g", "pg", "pg-13", "r"];
+
+function SearchForm({ initialRating = "", initialKeyword = "" }) {
+  const { keyword, rating, times, updateKeyword, updateRating } = useForm({
+    initialKeyword,
+    initialRating,
+  });
+
+  const [path, pushLocation] = useLocation();
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmit({ keyword });
+    pushLocation(`/search/${keyword}/${rating}`);
+  };
+  const handleChange = (evt) => {
+    updateKeyword(evt.target.value);
   };
 
-  const handleChange = (evt) => {
-    setKeyword(evt.target.value);
+  const handleChangeRating = (evt) => {
+    updateRating(evt.target.value);
   };
 
   return (
@@ -22,6 +34,13 @@ function SearchForm({ onSubmit }) {
         type="text"
         value={keyword}
       />
+      <select onChange={handleChangeRating} value={rating}>
+        <option disabled>Rating type</option>
+        {RATINGS.map((rating) => (
+          <option key={rating}>{rating}</option>
+        ))}
+      </select>
+      <small>{times}</small>
     </form>
   );
 }
